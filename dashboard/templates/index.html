@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Grid Dashboard</title>
+    <meta http-equiv="refresh" content="30">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 40px; }
+        .alert { color: red; font-weight: bold; font-size: 1.3em; }
+        img { max-width: 90%; margin-top: 20px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Smart Grid Load Monitoring</h1>
+    {% if alert.active %}
+        <p class="alert">⚠️ ALERT: Predicted Load {{ alert.last_value }} kW exceeds threshold!</p>
+    {% else %}
+        <p>No active alerts.</p>
+    {% endif %}
+    <img src="/static/plot.png" alt="Predicted vs Actual Load">
+</body>
+</html>

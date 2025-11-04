@@ -1,0 +1,133 @@
+# ------------------------------
+# smart-grid-load .gitignore
+# Tailored for a Python + Flask dashboard, Kafka clients, Spark scripts,
+# local virtualenv, and typical data/model artifacts.
+# ------------------------------
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Compiled extensions
+*.so
+
+# Virtual environments (local)
+.venv/
+venv/
+env/
+.smartgrid-env/
+smartgrid_env/
+
+# Packaging / build
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+wheelhouse/
+
+# Test and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+.cache/
+htmlcov/
+.tox/
+.nox/
+
+# Type checkers / linters
+.mypy_cache/
+.pytype/
+.pyright/
+.ruff_cache/
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+.profile_default/
+.ipython/
+
+# Environment / secrets
+.env
+.env.*
+*.env
+*.secrets*
+*.key
+*.pem
+*.crt
+*.der
+
+# Flask specific
+instance/
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+*.out
+*.err
+
+# Editor & OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Spark / Hadoop local artifacts
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Kafka local artifacts (if any local runs create these)
+kafka-logs/
+
+# Data artifacts
+# By default, ignore large/raw data dumps. Keep a README or samples folder if needed.
+# If you want to track specific datasets (e.g., data/smart_grid_dataset.csv),
+# remove or narrow these patterns.
+data/**
+!data/.gitkeep
+!data/README.md
+!data/samples/**
+
+# Model artifacts (tracked)
+# Models under model/models/ are now tracked by Git.
+# If you want to keep very large binaries out of the repo,
+# consider Git LFS or add targeted patterns below, for example:
+model/models/**/*.pt
+model/models/**/*.pth
+model/models/**/*.ckpt
+model/models/**/*.onnx
+model/models/**/*.pkl
+
+# Spark app temp
+**/_temporary/
+**/_SUCCESS
+
+# Misc caches
+*.cache
+
+# Local Python version managers
+.python-version
+
+# Node/npm leftovers (in case of frontend assets)
+node_modules/
+*.tsbuildinfo
+
+# Coverage reports (alternate formats)
+coverage.xml
+
+# Profiling
+.prof
+*.prof
+*.pstats
+
+# Backup files
+*.bak
+*.orig
+
+# End of file
