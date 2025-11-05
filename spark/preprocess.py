@@ -5,7 +5,7 @@ from pyspark.sql.types import DoubleType, TimestampType
 spark = SparkSession.builder.appName("SmartGridDataPreprocessing").getOrCreate()
 
 # Read local CSV
-df = spark.read.csv("file:///home/akashnair/Projects/smart-grid-load/data/smart_grid_dataset.csv", header=True, inferSchema=True)
+df = spark.read.csv("C:\\Users\\USER\\Desktop\\Projects\\smart-grid-load\\data\\smart_grid_dataset.csv", header=True, inferSchema=True)
 
 # Print columns for sanity
 print("Columns:", df.columns)
@@ -28,7 +28,7 @@ for c in numeric_cols:
     df = df.withColumn(c, (col(c) - stats['mean']) / stats['std'])
 
 # Write cleaned data to HDFS for the ML phase
-df.write.mode("overwrite").parquet("hdfs:///user/akash/cleaned_smartgrid_data/")
+df.write.mode("overwrite").parquet("hdfs://localhost:9000/user/akash/cleaned_smartgrid_data/")
 
 spark.stop()
 

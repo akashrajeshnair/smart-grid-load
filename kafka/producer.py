@@ -18,31 +18,26 @@ def generate_reading():
     wind = round(random.uniform(0, 3), 2)
     grid = round(max(power - (solar + wind), 0), 2)
     volt_fluct = round(random.uniform(0, 5), 2)
-    overload = random.choice([0, 1])
-    fault = random.choice([0, 1])
     temp = round(random.uniform(25, 45), 2)
     humidity = round(random.uniform(20, 90), 2)
     price = round(random.uniform(0.08, 0.25), 3)
-    pred_load = round(power * random.uniform(0.9, 1.2), 3)
 
     return {
         "Timestamp": datetime.utcnow().isoformat(),
-        "Voltage(V)": voltage,
-        "Current(A)": current,
-        "Power Consumption(kW)": power,
-        "Reactive Power(kVAR)": reactive_power,
+        "Voltage (V)": voltage,
+        "Current (A)": current,
+        "Power Consumption (kW)": power,
+        "Reactive Power (kVAR)": reactive_power,
         "Power Factor": pf,
-        "Solar Power(kW)": solar,
-        "Wind Power(kW)": wind,
-        "Grid Supply(kW)": grid,
-        "Voltage Fluctuation(%)": volt_fluct,
-        "Overload Condition": overload,
-        "Transformer Fault": fault,
-        "Temperature(°C)": temp,
-        "Humidity(%)": humidity,
-        "Electricity Price(USD/kWh)": price,
-        "Predicted Load(kW)": pred_load
+        "Solar Power (kW)": solar,
+        "Wind Power (kW)": wind,
+        "Grid Supply (kW)": grid,
+        "Voltage Fluctuation (%)": volt_fluct,
+        "Temperature (°C)": temp,
+        "Humidity (%)": humidity,
+        "Electricity Price (USD/kWh)": price,
     }
+
 
 if __name__ == "__main__":
     print("🚀 Sending smart-grid readings to Kafka topic 'smartgrid' ...")

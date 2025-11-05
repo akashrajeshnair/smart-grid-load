@@ -10,12 +10,12 @@ spark = SparkSession.builder.appName("SmartGridEDA").getOrCreate()
 # === Load cleaned or raw dataset ===
 # Prefer cleaned parquet from HDFS if available
 try:
-    df = spark.read.parquet("hdfs:///user/akash/cleaned_smartgrid_data/")
-    print("✅ Loaded cleaned data from HDFS.")
+    df = spark.read.parquet("hdfs://localhost:9000/user/akash/cleaned_smartgrid_data/")
+    print("[OK] Loaded cleaned data from HDFS.")
 except Exception as e:
-    print("⚠️ Could not find cleaned HDFS data, falling back to local CSV.")
+    print("[WARNING] Could not find cleaned HDFS data, falling back to local CSV.")
     df = spark.read.csv(
-        "file:///home/akashnair/Projects/smart-grid-load/data/smart_grid_dataset.csv",
+        "C:\\Users\\USER\\Desktop\\Projects\\smart-grid-load\\data\\smart_grid_dataset.csv",
         header=True,
         inferSchema=True
     )
@@ -27,7 +27,7 @@ print("Total records:", df.count())
 if "Timestamp" in df.columns:
     df = df.withColumn("Timestamp", col("Timestamp").cast("timestamp"))
 else:
-    print("❌ ERROR: 'Timestamp' column not found. Check dataset headers.")
+    print("[ERROR] 'Timestamp' column not found. Check dataset headers.")
     sys.exit(1)
 
 # === Basic descriptive stats ===
@@ -45,9 +45,9 @@ if "Power Consumption (kW)" in df.columns:
     hourly_load.show(24)
 
     # Save result to HDFS
-    hourly_load.write.mode("overwrite").csv("hdfs:///user/akash/eda_results/hourly_load/")
+    hourly_load.write.mode("overwrite").csv("hdfs://localhost:9000/user/akash/eda_results/hourly_load/")
 else:
-    print("⚠️ 'Power Consumption( (kW)' column not found for hourly analysis.")
+    print("[WARNING] 'Power Consumption (kW)' column not found for hourly analysis.")
 
 # === Daily Load Pattern (Day of Week) ===
 daily_load = (
@@ -57,7 +57,7 @@ daily_load = (
 )
 print("\n=== Average Load by Day of Week ===")
 daily_load.show()
-daily_load.write.mode("overwrite").csv("hdfs:///user/akash/eda_results/daily_load/")
+daily_load.write.mode("overwrite").csv("hdfs://localhost:9000/user/akash/eda_results/daily_load/")
 
 # === Monthly Load Trend ===
 monthly_load = (
@@ -67,7 +67,7 @@ monthly_load = (
 )
 print("\n=== Monthly Average Load ===")
 monthly_load.show()
-monthly_load.write.mode("overwrite").csv("hdfs:///user/akash/eda_results/monthly_load/")
+monthly_load.write.mode("overwrite").csv("hdfs://localhost:9000/user/akash/eda_results/monthly_load/")
 
 # === Correlations (Power vs Environmental/Generation factors) ===
 corr_targets = [
@@ -84,7 +84,7 @@ for a, b in corr_targets:
         val = df.stat.corr(a, b)
         print(f"Correlation({a}, {b}) = {val:.4f}")
     else:
-        print(f"⚠️ Missing column for correlation: {a} or {b}")
+        print(f"[WARNING] Missing column for correlation: {a} or {b}")
 
 # Stop Spark
 spark.stop()

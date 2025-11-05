@@ -98,7 +98,7 @@ data/**
 # Models under model/models/ are now tracked by Git.
 # If you want to keep very large binaries out of the repo,
 # consider Git LFS or add targeted patterns below, for example:
-model/models/**/*.pt
+model/models/
 model/models/**/*.pth
 model/models/**/*.ckpt
 model/models/**/*.onnx
@@ -109,7 +109,8 @@ model/models/**/*.pkl
 **/_SUCCESS
 
 # Misc caches
-*.cache
+cache
+static
 
 # Local Python version managers
 .python-version
